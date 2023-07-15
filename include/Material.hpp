@@ -43,4 +43,6 @@ public:
 	Glass(double rI);
 
 	Scatter scatterRay(const Vector3& inDirection, const Vector3& hit, const Vector3& normal);
+private:
+	const double reflectance(const double& cosineAngle, const double &rI);
 };

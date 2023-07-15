@@ -21,10 +21,11 @@ int main()
 	Image img(width, height, 3);
 	int* sampled = new int[width * height * 3]();
 
-	Image world("solitude_interior_2k.hdr");
+	Image world("solitude_interior_4k.hdr");
 
 	double aspectRatio = (double)width / height;
-	Camera cam(Vector3(0, 0, 5), Vector3(0, 0, -1), aspectRatio, 1.5);
+	Camera cam(Vector3(-4, 0, 5), Vector3(0, 0, -1), aspectRatio, 1.5);
+	cam.lookAt(Vector3(0, -1.5, -5));
 
 	Metal purple(Vector3(0.5, 0.1, 0.2), 0);
 	Lambertian blue(Vector3(1, 1, 1));
@@ -32,14 +33,14 @@ int main()
 
 	std::vector<Material*> materials;
 	materials.push_back(&purple);
-	materials.push_back(&blue);
 	materials.push_back(&glass);
+	materials.push_back(&blue);
 
 	Sphere s(Vector3(0, 0.25, -5), 1.5);
-	Sphere s2(Vector3(0.5, 0.5, 2.5), 0.5);
-	s2.materialIndex = 2;
-	Disc d(Vector3(0, -1.5, -5), Vector3(0, 1, 0), 5);
-	d.materialIndex = 1;
+	Sphere s2(Vector3(0.5, 0.5, 0.5), 1);
+	s2.materialIndex = 1;
+	Disc d(Vector3(0, -1.5, -5), Vector3(0, 3, 1), 5);
+	d.materialIndex = 2;
 
 	std::vector<RenderObject*> renderObjects;
 	renderObjects.push_back(&s);
