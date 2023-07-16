@@ -18,28 +18,27 @@ int main()
 	const int width = 1024;
 	const int height = 512;
 
-	Image img(width, height, 3);
-	int* sampled = new int[width * height * 3]();
+	Image outputImage(width, height, 3);
 
 	Image world("solitude_interior_4k.hdr");
 
 	double aspectRatio = (double)width / height;
-	Camera cam(Vector3(-4, 0, 5), Vector3(0, 0, -1), aspectRatio, 1.5);
-	cam.lookAt(Vector3(0, -1.5, -5));
+	Camera cam(Vector3(0, 3, 15), Vector3(0, 0, -1), aspectRatio, 1.5);
+	cam.lookAt(Vector3(0, 2, 0));
 
-	Metal purple(Vector3(0.5, 0.1, 0.2), 0);
-	Lambertian blue(Vector3(1, 1, 1));
+	Metal purpleMetal(Vector3(0.5, 0.1, 0.2), 0);
+	Lambertian diffuseWhite(Vector3(1, 1, 1));
 	Glass glass(1.45);
 
 	std::vector<Material*> materials;
-	materials.push_back(&purple);
+	materials.push_back(&purpleMetal);
 	materials.push_back(&glass);
-	materials.push_back(&blue);
+	materials.push_back(&diffuseWhite);
 
-	Sphere s(Vector3(0, 0.25, -5), 1.5);
-	Sphere s2(Vector3(0.5, 0.5, 0.5), 1);
+	Sphere s(Vector3(-2, 1.5, 0), 1);
+	Sphere s2(Vector3(1, 1.5, 0), 1);
 	s2.materialIndex = 1;
-	Disc d(Vector3(0, -1.5, -5), Vector3(0, 3, 1), 5);
+	Disc d(Vector3(0, 0, 0), Vector3(0, 1, 0), 20);
 	d.materialIndex = 2;
 
 	std::vector<RenderObject*> renderObjects;
@@ -47,8 +46,8 @@ int main()
 	renderObjects.push_back(&s2);
 	renderObjects.push_back(&d);
 
-	const int pixelSamples = 10;
-	const double gammaFactor = 1.0 / pixelSamples;
+	const int samplesPerPixel = 10;
+	const double gammaFactor = 1.0 / samplesPerPixel;
 	
 	size_t index = 0;
 	for (int y = 0; y < height; y++)
@@ -56,18 +55,18 @@ int main()
 		for (int x = 0; x < width; x++)
 		{
 			Vector3 color(0, 0, 0);
-			for (int s = 0; s < pixelSamples; s++)
+			for (int s = 0; s < samplesPerPixel; s++)
 			{
-				Ray r = cam.generateRay(((float)x + getRandom()) / width, ((float)y + getRandom()) / height);
+				Ray r = cam.generateRay(((double)x + getRandom()) / width, ((double)y + getRandom()) / height);
 				color = color + renderRay(r, renderObjects, materials, &world, 10);
 			}
-			img.buf[index++] = (int)(std::sqrt(color.x * gammaFactor) * 255);
-			img.buf[index++] = (int)(std::sqrt(color.y * gammaFactor) * 255);
-			img.buf[index++] = (int)(std::sqrt(color.z * gammaFactor) * 255);
+			outputImage.buf[index++] = (int)(std::sqrt(color.x * gammaFactor) * 255);
+			outputImage.buf[index++] = (int)(std::sqrt(color.y * gammaFactor) * 255);
+			outputImage.buf[index++] = (int)(std::sqrt(color.z * gammaFactor) * 255);
 		}
 	}
 
-	img.save("out.png");
+	outputImage.save("out.png");
 	
 	return 0;
 }
@@ -75,8 +74,8 @@ int main()
 Vector3 getSkyColor(Image* world, const Vector3 &dir)
 {
 	Vector3 d = -dir.normalize();
-	double u = 0.5 + std::atan2(d.x, d.z) / (2 * 3.14159);
-	double v = 0.5 + std::asin(d.y) / 3.14159;
+	double u = 0.5 + std::atan2(d.x, d.z) / (2 * M_PI);
+	double v = 0.5 + std::asin(d.y) / M_PI;
 	return world->getPixel(u, v);
 }
 

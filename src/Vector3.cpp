@@ -91,7 +91,7 @@ Vector3 cross(const Vector3 &v1, const Vector3 &v2)
 
 Vector3 onUnitSphere()
 {
-	double u = 2 * 3.14159 * getRandom();
+	double u = 2 * M_PI * getRandom();
 	double v = acos(2 * getRandom() - 1);
 	return Vector3(cos(u) * cos(v), sin(u) * cos(v), sin(v));
 }
