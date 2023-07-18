@@ -1,5 +1,5 @@
 # Prism Render
-[PrismRender](data/images/MugRender.png)
+# ![PrismRender](data/images/MugRender.png)
 
 Prism Render is a ray tracing program that generates realistic images by simulating the behavior of light rays in a virtual scene. 
 
