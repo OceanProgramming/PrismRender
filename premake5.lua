@@ -15,6 +15,7 @@ project "Raytracing"
 	{
 		"include/**.hpp",
 		"lib/**.h",
+		"lib/**.hpp",
 		"src/**.cpp"
 	}
 	

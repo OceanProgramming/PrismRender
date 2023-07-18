@@ -20,6 +20,7 @@ public:
 	Vector3 operator * (const double &f) const;
 	Vector3 operator * (const Vector3 &v) const;
 	Vector3 operator / (const double &f) const;
+	bool operator == (const Vector3& v) const;
 	
 	double sqrLength() const;
 	double length() const;
@@ -33,3 +34,11 @@ double getRandom();
 double dot(const Vector3 &v1, const Vector3 &v2);
 Vector3 cross(const Vector3 &v1, const Vector3 &v2);
 Vector3 onUnitSphere();
+
+template<> struct std::hash<Vector3>
+{
+	size_t operator()(const Vector3& v) const
+	{
+		return std::hash<double>()(v.x) ^ (std::hash<double>()(v.y) << 1) ^ std::hash<double>()(v.z);
+	}
+};

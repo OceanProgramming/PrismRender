@@ -51,6 +51,11 @@ Vector3 Vector3::operator / (const double &f) const
 	return Vector3(x / f, y / f, z / f);
 }
 
+bool Vector3::operator == (const Vector3& v) const
+{
+	return this->x == v.x && this->y == v.y && this->z == v.z;
+}
+
 double Vector3::length() const
 {
 	return std::sqrt(x * x + y * y + z * z);
