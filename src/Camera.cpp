@@ -1,50 +1,62 @@
 #include "../include/Camera.hpp"
 
-Camera::Camera()
+namespace PrismRender
 {
-	position = Vector3();
-	direction = Vector3(0, 0, -1);
-	aspectRatio = 1;
-	focalLength = 1;
-	recalculateUV();
-}
+	Camera::Camera()
+	{
+		position = glm::vec3();
+		direction = glm::vec3(0, 0, -1);
+		viewportWidth = 1280;
+		viewportHeight = 720;
+		aspectRatio = (float)viewportWidth / viewportHeight;
+		focalLength = 1;
+		resizeViewport(viewportWidth, viewportHeight);
+	}
 
-Camera::Camera(Vector3 pos, Vector3 dir, double ar)
-{
-	position = pos;
-	direction = dir.normalize();
-	aspectRatio = ar;
-	focalLength = 1;
-	recalculateUV();
-}
+	Camera::Camera(float aspect, float focal)
+	{
+		position = glm::vec3();
+		direction = glm::vec3(0, 0, -1);
+		viewportWidth = 1280;
+		viewportHeight = 720;
+		aspectRatio = aspect;
+		focalLength = focal;
+		resizeViewport(viewportWidth, viewportHeight);
+	}
 
-Camera::Camera(Vector3 pos, Vector3 dir, double ar, double fl)
-{
-	position = pos;
-	direction = dir.normalize();
-	aspectRatio = ar;
-	focalLength = fl;
-	recalculateUV();
-}
+	void Camera::resizeViewport(int width, int height)
+	{
+		viewportWidth = width;
+		viewportHeight = height;
+		aspectRatio = (float)viewportWidth / viewportHeight;
+		cachedRayDirections.resize(viewportWidth * viewportHeight);
+		recalculateRayDirections();
+	}
 
-Ray Camera::generateRay(double u, double v)
-{
-	const double rayU = aspectRatio * (u - 0.5);
-	const double rayV = v - 0.5;
+	void Camera::lookAt(glm::vec3 point)
+	{
+		direction = glm::normalize(point - position);
+		recalculateUV();
+		recalculateRayDirections();
+	}
 
-	Vector3 rayDir = direction * focalLength + uVec * rayU + vVec * rayV;
-
-	return Ray(position, rayDir.normalize());
-}
-
-void Camera::lookAt(Vector3 point)
-{
-	direction = (point - position).normalize();
-	recalculateUV();
-}
-
-void Camera::recalculateUV()
-{
-	uVec = cross(direction, Vector3(0, 1, 0)).normalize();
-	vVec = cross(direction, uVec).normalize();
+	void Camera::recalculateUV()
+	{
+		uVec = glm::normalize(glm::cross(direction, glm::vec3(0, 1, 0)));
+		vVec = glm::normalize(glm::cross(direction, uVec));
+	}
+	void Camera::recalculateRayDirections()
+	{
+		for (int y = 0; y < viewportHeight; y++)
+		{
+			for (int x = 0; x < viewportWidth; x++)
+			{
+				glm::vec2 ndc((float)x / (float)viewportWidth, (float)y / (float)viewportHeight);
+				ndc = ndc * 2.0f - 1.0f;
+				ndc.x = ndc.x * aspectRatio;
+				glm::vec3 dir = direction * focalLength + uVec * ndc.x + vVec * ndc.y;
+				cachedRayDirections[x + y * viewportWidth] = dir;
+			}
+		}
+	}
 }

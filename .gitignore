@@ -1,7 +1,4 @@
 build/*
-vendor/*
-
-out.png
 
 .vs/
 .vscode/

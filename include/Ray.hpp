@@ -1,12 +1,19 @@
 #pragma once
 
-#include "Vector3.hpp"
+#include "glm/glm.hpp"
 
-class Ray
+namespace PrismRender
 {
-public:
-	Vector3 origin;
-	Vector3 direction;
+	struct Ray
+	{
+		Ray(glm::vec3 orig, glm::vec3 dir) : origin(orig), direction(dir) {};
 
-	Ray(Vector3 orig, Vector3 dir);
-};
+		glm::vec3 origin;
+		glm::vec3 direction;
+	};
+
+	inline float getRandom()
+	{
+		return ((float)rand() + 1) / (RAND_MAX + 1);
+	}
+}

@@ -1,48 +1,51 @@
 #pragma once
 
-#include "../include/Vector3.hpp"
+#include "glm/glm.hpp"
 
-struct Scatter
+namespace PrismRender
 {
-	Vector3 color;
-	Vector3 outDirection;
-};
+	struct Scatter
+	{
+		glm::vec3 color;
+		glm::vec3 outDirection;
+	};
 
-class Material
-{
-public:
-	virtual Scatter scatterRay(const Vector3& inDirection, const Vector3& hit, const Vector3& normal) = 0;
-};
+	class Material
+	{
+	public:
+		virtual Scatter scatterRay(const glm::vec3& inDirection, const glm::vec3& hit, const glm::vec3& normal) = 0;
+	};
 
-class Lambertian : public Material
-{
-public:
-	Vector3 baseColor;
+	class Lambertian : public Material
+	{
+	public:
+		Lambertian(glm::vec3 col);
 
-	Lambertian(Vector3 col);
+		Scatter scatterRay(const glm::vec3& inDirection, const glm::vec3& hit, const glm::vec3& normal);
 
-	Scatter scatterRay(const Vector3& inDirection, const Vector3& hit, const Vector3& normal);
-};
+		glm::vec3 baseColor;
+	};
 
-class Metal : public Material
-{
-public:
-	Vector3 baseColor;
-	double roughness;
+	class Metal : public Material
+	{
+	public:
+		Metal(glm::vec3 col, float r);
 
-	Metal(Vector3 col, double r);
+		Scatter scatterRay(const glm::vec3& inDirection, const glm::vec3& hit, const glm::vec3& normal);
 
-	Scatter scatterRay(const Vector3& inDirection, const Vector3& hit, const Vector3& normal);
-};
+		glm::vec3 baseColor;
+		float roughness;
+	};
 
-class Glass : public Material
-{
-public:
-	double refractiveIndex;
+	class Glass : public Material
+	{
+	public:
+		Glass(float rI);
 
-	Glass(double rI);
+		Scatter scatterRay(const glm::vec3& inDirection, const glm::vec3& hit, const glm::vec3& normal);
 
-	Scatter scatterRay(const Vector3& inDirection, const Vector3& hit, const Vector3& normal);
-private:
-	const double reflectance(const double& cosineAngle, const double &rI);
-};
+		float refractiveIndex;
+	private:
+		const float reflectance(const float& cosineAngle, const float& rI);
+	};
+}

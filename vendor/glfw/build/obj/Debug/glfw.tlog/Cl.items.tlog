@@ -1,0 +1,15 @@
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\context.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\context.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\egl_context.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\egl_context.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\init.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\init.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\input.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\input.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\monitor.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\monitor.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\osmesa_context.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\osmesa_context.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\vulkan.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\vulkan.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\wgl_context.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\wgl_context.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\win32_init.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\win32_init.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\win32_joystick.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\win32_joystick.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\win32_monitor.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\win32_monitor.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\win32_thread.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\win32_thread.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\win32_time.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\win32_time.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\win32_window.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\win32_window.obj
+C:\Users\Djik\Desktop\PrismRender\vendor\glfw\src\window.c;C:\Users\Djik\Desktop\PrismRender\vendor\glfw\build\obj\Debug\window.obj

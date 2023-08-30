@@ -1,16 +1,23 @@
 #pragma once
 
-#include "../include/RenderObject.hpp"
+#include "Ray.hpp"
 
-class Sphere : public RenderObject
+#include "glm/glm.hpp"
+
+namespace PrismRender
 {
-public:
-	Vector3 position;
-	double radius;
+	class Sphere
+	{
+	public:
+		Sphere();
+		Sphere(glm::vec3 pos, float r);
 
-	Sphere();
-	Sphere(Vector3 pos, double r);
+		float getIntersection(const Ray& r) const;
+		glm::vec3 getNormal(const glm::vec3& hit) const;
 
-	double getIntersection(const Ray &r) const override;
-	Vector3 getNormal(const Vector3 &hit) const override;
-};
+		glm::vec3 position;
+		float radius;
+
+		int materialIndex = 0;
+	};
+}

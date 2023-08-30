@@ -1,20 +1,24 @@
 #pragma once
 
+#include "glm/glm.hpp"
+
 #include <cstdint>
 
-#include "../include/Vector3.hpp"
-
-class Image
+namespace PrismRender
 {
-public:
-	int width;
-	int height;
-	int channels;
-	uint8_t* buf;
+	class Image
+	{
+	public:
+		Image(int w, int h, int channels);
+		Image(const char* pathToFile);
 
-	Image(int w, int h, int channels);
-	Image(const char* filename);
-
-	int save(const char* filename);
-	Vector3 getPixel(double u, double v) const;
-};
+		int writeToFile(const char* filename);
+		glm::vec3 getPixel(double u, double v) const;
+		void resizeBuffer(int newWidth, int newHeight);
+	
+		int width;
+		int height;
+		int channels;
+		uint8_t* buffer;
+	};
+}

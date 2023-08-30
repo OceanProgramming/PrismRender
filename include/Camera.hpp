@@ -1,27 +1,31 @@
 #pragma once
 
-#include "../include/Vector3.hpp"
-#include "../include/Ray.hpp"
+#include "Ray.hpp"
 
-class Camera
+#include <vector>
+
+namespace PrismRender
 {
-public:
-	Vector3 position;
-	Vector3 direction;
-	double aspectRatio;
-	double focalLength;
+	class Camera
+	{
+	public:
+		Camera();
+		Camera(float aspect, float focal);
 
-	Camera();
-	Camera(Vector3 pos, Vector3 dir, double ar);
-	Camera(Vector3 pos, Vector3 dir, double ar, double fl);
+		const std::vector<glm::vec3>& getRayDirections() { return cachedRayDirections; };
+		void resizeViewport(int width, int height);
+		void lookAt(glm::vec3 point);
 
-	Ray generateRay(double u, double v);
-
-	void lookAt(Vector3 point);
-
-private:
-	Vector3 uVec;
-	Vector3 vVec;
-
-	void recalculateUV();
-};
+		glm::vec3 position;
+		glm::vec3 direction;
+		float aspectRatio;
+		float focalLength;
+	private:
+		void recalculateUV();
+		void recalculateRayDirections();
+		
+		int viewportWidth = 0, viewportHeight = 0;
+		glm::vec3 uVec, vVec;
+		std::vector<glm::vec3> cachedRayDirections;
+	};
+}

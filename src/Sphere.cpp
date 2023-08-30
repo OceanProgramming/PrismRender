@@ -1,25 +1,25 @@
-#include "../include/Sphere.hpp"
+#include "Sphere.hpp"
 
 Sphere::Sphere()
 {
-	position = Vector3();
+	position = glm::vec3();
 	radius = 1;
 }
 
-Sphere::Sphere(Vector3 pos, double r)
+Sphere::Sphere(glm::vec3 pos, float r)
 {
 	position = pos;
 	radius = r;
 }
 
-double Sphere::getIntersection(const Ray &r) const
+float Sphere::getIntersection(const Ray &r) const
 {
-	Vector3 oc = r.origin - position;
-	double a = dot(r.direction, r.direction);
-	double hb = dot(oc, r.direction);
-	double c = dot(oc, oc) - radius * radius;
+	glm::vec3 oc = r.origin - position;
+	float a = glm::dot(r.direction, r.direction);
+	float hb = glm::dot(oc, r.direction);
+	float c = glm::dot(oc, oc) - radius * radius;
 
-	double discriminant = hb * hb - a * c;
+	float discriminant = hb * hb - a * c;
 	
 	if (discriminant < 0)
 	{
@@ -31,7 +31,7 @@ double Sphere::getIntersection(const Ray &r) const
 	}
 }
 
-Vector3 Sphere::getNormal(const Vector3 &hit) const
+glm::vec3 Sphere::getNormal(const glm::vec3 &hit) const
 {
 	return (hit - position) / radius;
 }
