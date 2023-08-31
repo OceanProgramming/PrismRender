@@ -13,7 +13,7 @@ namespace PrismRender
 		Image(const char* pathToFile);
 
 		int writeToFile(const char* filename);
-		glm::vec3 getPixel(double u, double v) const;
+		glm::vec3 getPixel(float u, float v) const;
 		void resizeBuffer(int newWidth, int newHeight);
 	
 		int width;

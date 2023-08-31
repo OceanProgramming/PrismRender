@@ -166,6 +166,7 @@ namespace PrismRender
 			glBindTexture(GL_TEXTURE_2D, texture);
 			camera.position += glm::vec3(0, 0, -0.51);
 			camera.lookAt(glm::vec3(0, 0, 0));
+			std::cout << "[" << camera.direction.x << ", " << camera.direction.y << ", " << camera.direction.z << "]\n";
 			renderer.render(&scene, &camera);
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, renderer.output.width, renderer.output.height, 0, GL_RGB, GL_UNSIGNED_BYTE, renderer.output.buffer);
 			//glGenerateMipmap(GL_TEXTURE_2D);

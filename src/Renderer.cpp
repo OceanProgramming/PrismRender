@@ -8,6 +8,7 @@
 #endif
 #include <chrono>
 #include <iostream>
+#include <algorithm>
 
 namespace PrismRender
 {
@@ -41,7 +42,7 @@ namespace PrismRender
 	glm::vec3 Renderer::getSkyColor(const Image* world, const glm::vec3& dir)
 	{
 		glm::vec3 d = glm::normalize(-dir);
-		float u = 0.5f + std::atan2f(d.x, d.z) / (2.0f * M_PI);
+		float u = 0.5f + std::atan2f(d.z, d.x) / (2.0f * M_PI);
 		float v = 0.5f + std::asinf(d.y) / M_PI;
 		return world->getPixel(u, v);
 	}

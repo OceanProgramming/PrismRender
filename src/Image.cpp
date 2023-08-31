@@ -6,6 +6,7 @@
 #include "../vendor/stb/stb_image_write.h"
 
 #include <iostream>
+#include <algorithm>
 
 namespace PrismRender
 {
@@ -34,11 +35,11 @@ namespace PrismRender
 		return 0;
 	}
 
-	glm::vec3 Image::getPixel(double u, double v) const
+	glm::vec3 Image::getPixel(float u, float v) const
 	{
-		int x = u * width;
-		int y = v * height;
-		int i = (x + y * width) * 3;
+		int x = std::clamp(static_cast<int>(u * width), 0, width - 1);
+		int y = std::clamp(static_cast<int>(v * height), 0, height - 1);
+		size_t i = (x + y * width) * channels;
 		return glm::vec3(buffer[i], buffer[i + 1], buffer[i + 2]) / 255.0f;
 	}
 
